@@ -15,9 +15,7 @@ class PlayState extends FlxState
 			eReg3 = ~/("(.+)")/,
 			source = Assets.getText(AssetPaths.Animation__json);
 
-		trace(eReg3.match("\"asdlkajsdlaksjd\":"));
-
-		var lastMatch = 0, position;
+		var lastMatch = 0, position, array:Array<Array<String>> = [];
 
 		while (eReg.matchSub(source, lastMatch))
 		{
@@ -26,6 +24,7 @@ class PlayState extends FlxState
 			if (eReg2.matchSub(source, position.pos + position.len))
 			{
 				var string = eReg2.matched(0);
+				position = eReg2.matchedPos();
 
 				string = string.substring(1, string.length - 1);
 
@@ -39,7 +38,6 @@ class PlayState extends FlxState
 					if (marched)
 					{
 						var filter = eReg3.matched(0);
-						trace(repeated);
 						if (repeated.exists(filter))
 						{
 							var mod = '"${filter.substring(1, filter.length - 1)}_${repeated.get(filter) + 1}"';
@@ -60,7 +58,6 @@ class PlayState extends FlxState
 		}
 
 		var json:AnimAtlas = Json.parse(source);
-		trace(json.AN);
 		trace(json.AN.STI.SI.F); // array?? list??
 	}
 }
